@@ -1,6 +1,13 @@
 import { Account } from '../entities/account';
+import { AccountContact } from '../entities/account-contact';
+import { AccountProvider } from '../entities/account-provider';
 
 export interface AccountRepository {
-  save(account: Account): Promise<Account | null>;
+  create(
+    account: Account,
+    provider: AccountProvider,
+    contact: AccountContact,
+  ): Promise<void>;
+
   findById(id: string): Promise<Account | null>;
 }
