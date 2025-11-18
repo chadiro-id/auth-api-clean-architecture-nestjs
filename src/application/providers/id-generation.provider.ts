@@ -1,3 +1,3 @@
 export interface IdGenerationProvider {
-  generate(): string;
+  generate(size: number): string;
 }
