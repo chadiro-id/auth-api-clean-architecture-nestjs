@@ -8,4 +8,8 @@ export class AccountService {
     private readonly accountProviderRepository: AccountProviderRepository,
     private readonly accountContactRepository: AccountContactRepository,
   ) {}
+
+  async existsByEmail(email: string): Promise<boolean> {
+    return this.accountProviderRepository.existsByEmail(email);
+  }
 }
