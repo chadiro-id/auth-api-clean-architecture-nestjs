@@ -11,7 +11,7 @@ export class Account {
     public readonly status: Status,
     public readonly isDelete: boolean,
     public readonly createdAt: Date,
-    public readonly updatedAt: Date,
-    public readonly deletedAt: Date,
+    public readonly updatedAt: Date | null,
+    public readonly deletedAt: Date | null,
   ) {}
 }
