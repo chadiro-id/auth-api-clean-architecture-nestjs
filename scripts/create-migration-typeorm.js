@@ -7,7 +7,7 @@ if (!migrationName) {
   process.exit(1);
 }
 
-const migrationPath = path.join('migrations', migrationName);
+const migrationPath = path.join('migrations', 'typeorm', migrationName);
 const command = `npx typeorm migration:create ${migrationPath}`;
 
 console.log(`Creating migration: ${migrationName}`);
