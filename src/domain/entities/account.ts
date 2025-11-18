@@ -1,18 +1,28 @@
+export enum Status {
+  ACTIVE,
+  PENDING,
+  SUSPENDED,
+  DELETED,
+}
+
 export class Account {
   public readonly id: string;
-  public readonly isActive: boolean;
-  public readonly isDelete: boolean;
+  public readonly status: Status;
   public readonly createdAt: Date;
+  public readonly updatedAt: Date;
+  public readonly deletedAt: Date;
 
   constructor(
     id: string,
-    isActive: boolean,
-    isDelete: boolean,
+    status: Status,
     createdAt: Date,
+    updatedAt: Date,
+    deletedAt: Date,
   ) {
     this.id = id;
-    this.isActive = isActive;
-    this.isDelete = isDelete;
+    this.status = status;
     this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.deletedAt = deletedAt;
   }
 }
