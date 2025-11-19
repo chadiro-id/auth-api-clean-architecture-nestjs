@@ -1,4 +1,5 @@
 export enum ProviderType {
+  USERNAME,
   EMAIL,
   GOOGLE,
 }
