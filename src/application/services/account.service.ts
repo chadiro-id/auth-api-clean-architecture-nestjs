@@ -18,7 +18,7 @@ export class AccountService {
     private readonly accountContactRepository: AccountContactRepository,
   ) {}
 
-  async existsByEmail(email: string): Promise<boolean> {
+  async existsByEmail(email: string) {
     return this.accountProviderRepository.existsByEmail(email);
   }
 
@@ -42,5 +42,9 @@ export class AccountService {
     );
 
     await this.accountRepository.create(account, provider, contact);
+  }
+
+  async findForLoginByEmail(email: string) {
+    return this.accountProviderRepository.findByEmail(email);
   }
 }
