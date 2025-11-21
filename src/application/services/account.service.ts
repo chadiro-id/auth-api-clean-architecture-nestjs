@@ -2,9 +2,11 @@ import { Account } from 'src/domain/entities/account';
 import { Identity } from 'src/domain/entities/identity';
 import { IdentityRepository } from 'src/domain/repositories/identity.repository';
 import { AccountRepository } from 'src/domain/repositories/account.repository';
+import { UserRepository } from 'src/domain/repositories/user.repository';
 
 export class AccountService {
   constructor(
+    private readonly userRepository: UserRepository,
     private readonly accountRepository: AccountRepository,
     private readonly identityRepository: IdentityRepository,
   ) {}
