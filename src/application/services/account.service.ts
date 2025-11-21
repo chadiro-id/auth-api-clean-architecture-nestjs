@@ -1,6 +1,6 @@
 import { Account } from 'src/domain/entities/account';
 import { AccountContact } from 'src/domain/entities/account-contact';
-import { AccountProvider } from 'src/domain/entities/account-provider';
+import { AccountProvider } from 'src/domain/entities/identity';
 import { AccountContactRepository } from 'src/domain/repositories/account-contact.repository';
 import { AccountProviderRepository } from 'src/domain/repositories/account-provider.repository';
 import { AccountRepository } from 'src/domain/repositories/account.repository';

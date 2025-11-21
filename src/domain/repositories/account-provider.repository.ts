@@ -1,4 +1,4 @@
-import { AccountProvider } from '../entities/account-provider';
+import { AccountProvider } from '../entities/identity';
 
 export interface AccountProviderRepository {
   save(accountProvider: AccountProvider): Promise<AccountProvider | null>;

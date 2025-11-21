@@ -1,6 +1,6 @@
 import { Account } from '../entities/account';
 import { AccountContact } from '../entities/account-contact';
-import { AccountProvider } from '../entities/account-provider';
+import { AccountProvider } from '../entities/identity';
 
 export interface AccountRepository {
   create(
