@@ -1,7 +1,4 @@
-export enum ContactType {
-  EMAIL,
-  PHONE_NUMBER,
-}
+type ContactType = 'EMAIL' | 'PHONE_NUMBER';
 
 export class AccountContact {
   constructor(

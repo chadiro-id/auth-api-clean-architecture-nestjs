@@ -1,12 +1,6 @@
-import { Account, Status } from 'src/domain/entities/account';
-import {
-  AccountContact,
-  ContactType,
-} from 'src/domain/entities/account-contact';
-import {
-  AccountProvider,
-  ProviderType,
-} from 'src/domain/entities/account-provider';
+import { Account } from 'src/domain/entities/account';
+import { AccountContact } from 'src/domain/entities/account-contact';
+import { AccountProvider } from 'src/domain/entities/account-provider';
 import { AccountContactRepository } from 'src/domain/repositories/account-contact.repository';
 import { AccountProviderRepository } from 'src/domain/repositories/account-provider.repository';
 import { AccountRepository } from 'src/domain/repositories/account.repository';
@@ -24,22 +18,9 @@ export class AccountService {
 
   async createWithEmail(id: string, email: string, password: string) {
     const date = new Date();
-    const account = new Account(id, Status.ACTIVE, false, date, null, null);
-    const provider = new AccountProvider(
-      id,
-      ProviderType.EMAIL,
-      email,
-      password,
-      date,
-    );
-    const contact = new AccountContact(
-      id,
-      ContactType.EMAIL,
-      email,
-      true,
-      null,
-      date,
-    );
+    const account = new Account(id, 'ACTIVE', false, date, null, null);
+    const provider = new AccountProvider(id, 'EMAIL', email, password, date);
+    const contact = new AccountContact(id, 'EMAIL', email, true, null, date);
 
     await this.accountRepository.create(account, provider, contact);
   }

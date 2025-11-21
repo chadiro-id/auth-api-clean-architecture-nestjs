@@ -1,9 +1,4 @@
-export enum Status {
-  ACTIVE,
-  PENDING,
-  SUSPENDED,
-  DELETED,
-}
+type Status = 'ACTIVE' | 'SUSPENDED' | 'DELETED';
 
 export class Account {
   constructor(

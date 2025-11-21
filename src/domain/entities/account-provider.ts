@@ -1,8 +1,4 @@
-export enum ProviderType {
-  USERNAME,
-  EMAIL,
-  GOOGLE,
-}
+type ProviderType = 'EMAIL' | 'GOOGLE';
 
 export class AccountProvider {
   constructor(
