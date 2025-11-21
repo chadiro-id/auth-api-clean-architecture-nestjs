@@ -2,18 +2,18 @@ import { Account } from 'src/domain/entities/account';
 import { AccountContact } from 'src/domain/entities/account-contact';
 import { Identity } from 'src/domain/entities/identity';
 import { AccountContactRepository } from 'src/domain/repositories/account-contact.repository';
-import { AccountProviderRepository } from 'src/domain/repositories/account-provider.repository';
+import { IdentityRepository } from 'src/domain/repositories/identity.repository';
 import { AccountRepository } from 'src/domain/repositories/account.repository';
 
 export class AccountService {
   constructor(
     private readonly accountRepository: AccountRepository,
-    private readonly accountProviderRepository: AccountProviderRepository,
+    private readonly identityRepository: IdentityRepository,
     private readonly accountContactRepository: AccountContactRepository,
   ) {}
 
   async existsByEmail(email: string) {
-    return this.accountProviderRepository.existsByEmail(email);
+    return this.identityRepository.existsByEmail(email);
   }
 
   async createWithEmail(id: string, email: string, password: string) {
@@ -34,6 +34,6 @@ export class AccountService {
   }
 
   async findForLoginByEmail(email: string) {
-    return this.accountProviderRepository.findByEmail(email);
+    return this.identityRepository.findByEmail(email);
   }
 }
