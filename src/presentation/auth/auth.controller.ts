@@ -1,4 +1,13 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Delete, Post, Put } from '@nestjs/common';
 
-@Controller('/auth')
-export class AuthController {}
+@Controller('auth')
+export class AuthController {
+  @Post()
+  async handlePostAuth() {}
+
+  @Put()
+  async handlePutAuth() {}
+
+  @Delete()
+  async handleDeleteAuth() {}
+}
