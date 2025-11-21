@@ -19,8 +19,15 @@ export class SignUpUseCase {
     const hashedPassword = await this.passwordHasProvider.hashPassword(
       dto.password,
     );
-    const id = this.idGenerationProvider.generate(21);
+    const userId = this.idGenerationProvider.generate(21);
+    const accountId = this.idGenerationProvider.generate(21);
 
-    await this.accountService.createWithEmail(id, dto.email, hashedPassword);
+    await this.accountService.createWithEmail(
+      userId,
+      accountId,
+      dto.email,
+      hashedPassword,
+      'fullname',
+    );
   }
 }

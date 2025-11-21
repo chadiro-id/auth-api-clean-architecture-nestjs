@@ -3,6 +3,7 @@ import { Identity } from 'src/domain/entities/identity';
 import { IdentityRepository } from 'src/domain/repositories/identity.repository';
 import { AccountRepository } from 'src/domain/repositories/account.repository';
 import { UserRepository } from 'src/domain/repositories/user.repository';
+import { User } from 'src/domain/entities/user';
 
 export class AccountService {
   constructor(
@@ -15,20 +16,26 @@ export class AccountService {
     return this.identityRepository.existsByEmail(email);
   }
 
-  async createWithEmail(id: string, email: string, password: string) {
-    const date = new Date();
+  async createWithEmail(
+    userId: string,
+    accountId: string,
+    email: string,
+    password: string,
+    fullname: string,
+  ) {
+    const now = new Date();
+    const user = new User(userId, fullname, fullname);
     const account = new Account(
-      id,
+      accountId,
+      userId,
       password,
       'ACTIVE',
       false,
-      date,
-      null,
-      null,
+      now,
     );
-    const identity = new Identity(id, 'EMAIL', email, date);
+    const identity = new Identity(accountId, 'EMAIL', email, now);
 
-    await this.accountRepository.create(account, identity);
+    await this.userRepository.save(user, account, identity);
   }
 
   async findForLoginByEmail(email: string) {
