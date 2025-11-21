@@ -18,7 +18,15 @@ export class AccountService {
 
   async createWithEmail(id: string, email: string, password: string) {
     const date = new Date();
-    const account = new Account(id, 'ACTIVE', false, date, null, null);
+    const account = new Account(
+      id,
+      password,
+      'ACTIVE',
+      false,
+      date,
+      null,
+      null,
+    );
     const identity = new Identity(id, 'EMAIL', email, date);
     const contact = new AccountContact(id, 'EMAIL', email, true, null, date);
 
