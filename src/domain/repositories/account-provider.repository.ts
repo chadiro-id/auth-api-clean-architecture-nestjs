@@ -1,8 +1,8 @@
-import { AccountProvider } from '../entities/identity';
+import { Identity } from '../entities/identity';
 
 export interface AccountProviderRepository {
-  save(accountProvider: AccountProvider): Promise<AccountProvider | null>;
-  findAllByAccountId(accountId: string): Promise<AccountProvider[]>;
+  save(identity: Identity): Promise<void>;
+  findAllByAccountId(accountId: string): Promise<Identity[]>;
   existsByEmail(email: string): Promise<boolean>;
-  findByEmail(email: string): Promise<AccountProvider | null>;
+  findByEmail(email: string): Promise<Identity | null>;
 }
