@@ -1,7 +1,7 @@
 import { AccountRepository } from 'src/domain/repositories/account.repository';
 import { IdentityRepository } from 'src/domain/repositories/identity.repository';
 import { UserRepository } from 'src/domain/repositories/user.repository';
-import { RegisterUserInput } from './dtos/register-user.dto';
+import { RegisterUserDto } from './dtos/register-user.dto';
 import { PasswordHashingService } from 'src/application/services/password-hashing.service';
 import { UniqueIdService } from 'src/application/services/unique-id.service';
 import { User } from 'src/domain/entities/user';
@@ -17,9 +17,9 @@ export class RegisterUserUseCase {
     private readonly uniqueIdService: UniqueIdService,
   ) {}
 
-  async execute(input: RegisterUserInput) {
+  async execute(dto: RegisterUserDto) {
     const isIdentityExists = await this.identityRepository.existsByEmail(
-      input.email,
+      dto.email,
     );
 
     if (isIdentityExists) {
@@ -28,12 +28,10 @@ export class RegisterUserUseCase {
 
     const userId = this.uniqueIdService.generate();
     const accountId = this.uniqueIdService.generate();
-    const hashedPassword = await this.passwordHashingService.hash(
-      input.password,
-    );
+    const hashedPassword = await this.passwordHashingService.hash(dto.password);
     const date = new Date();
 
-    const user = new User(userId, input.fullname, input.fullname);
+    const user = new User(userId, dto.fullname, dto.fullname);
     const account = new Account(
       accountId,
       userId,
@@ -42,7 +40,7 @@ export class RegisterUserUseCase {
       false,
       date,
     );
-    const identity = new Identity(accountId, 'EMAIL', input.email, date);
+    const identity = new Identity(accountId, 'EMAIL', dto.email, date);
 
     await this.userRepository.save(user, account, identity);
   }
