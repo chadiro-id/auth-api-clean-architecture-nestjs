@@ -43,5 +43,10 @@ export class RegisterUserUseCase {
     const identity = new Identity(accountId, 'EMAIL', dto.email, date);
 
     await this.userRepository.save(user, account, identity);
+    return {
+      id: userId,
+      email: dto.email,
+      fullname: dto.fullname,
+    };
   }
 }
