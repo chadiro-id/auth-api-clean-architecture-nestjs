@@ -28,7 +28,7 @@ export class RegisterUserUseCase {
 
     const userId = this.idGenerator.generate();
     const accountId = this.idGenerator.generate();
-    const hashedPassword = await this.passwordHasher.hash(dto.password);
+    const hashedPassword = await this.passwordHasher.hashPassword(dto.password);
     const date = new Date();
 
     const user = new User(userId, dto.fullname, dto.fullname);

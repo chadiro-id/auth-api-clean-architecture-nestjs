@@ -24,7 +24,7 @@ export class UserLoginUseCase {
       throw new Error('Invalid credentials');
     }
 
-    const isMatch = await this.passwordHasher.compare(
+    const isMatch = await this.passwordHasher.comparePassword(
       dto.password,
       account.password as string,
     );
