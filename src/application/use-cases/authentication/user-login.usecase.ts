@@ -20,8 +20,8 @@ export class UserLoginUseCase {
     }
 
     const isMatch = await this.passwordHasher.compare(
-      account.password as string,
       dto.password,
+      account.password as string,
     );
     if (!isMatch) {
       throw new Error('Invalid credentials');
