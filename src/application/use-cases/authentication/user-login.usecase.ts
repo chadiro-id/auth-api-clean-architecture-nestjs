@@ -2,7 +2,7 @@ import { AccountRepository } from 'src/domain/repositories/account.repository';
 import { UserRepository } from 'src/domain/repositories/user.repository';
 import { UserLoginDto } from './dtos/user-login.dto';
 import { PasswordHasher } from 'src/application/services/password-hasher';
-import { TokenProvider } from 'src/application/services/token-provider';
+import { AuthTokenService } from 'src/application/services/auth-token-service';
 import { AuthenticationRepository } from 'src/domain/repositories/authentication.repository';
 import { Authentication } from 'src/domain/entities/authentication';
 
@@ -12,7 +12,7 @@ export class UserLoginUseCase {
     private readonly accountRepository: AccountRepository,
     private readonly userRepository: UserRepository,
     private readonly passwordHasher: PasswordHasher,
-    private readonly tokenProvider: TokenProvider,
+    private readonly tokenProvider: AuthTokenService,
   ) {}
 
   async execute(dto: UserLoginDto) {
