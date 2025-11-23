@@ -2,7 +2,7 @@ import { AccountRepository } from 'src/domain/repositories/account.repository';
 import { IdentityRepository } from 'src/domain/repositories/identity.repository';
 import { UserRepository } from 'src/domain/repositories/user.repository';
 import { RegisterUserDto } from './dtos/register-user.dto';
-import { PasswordHashingService } from 'src/application/services/password-hashing.service';
+import { PasswordHasher } from 'src/application/services/password-hasher';
 import { UniqueIdService } from 'src/application/services/unique-id.service';
 import { User } from 'src/domain/entities/user';
 import { Account } from 'src/domain/entities/account';
@@ -13,7 +13,7 @@ export class RegisterUserUseCase {
     private readonly userRepository: UserRepository,
     private readonly accountRepository: AccountRepository,
     private readonly identityRepository: IdentityRepository,
-    private readonly passwordHashingService: PasswordHashingService,
+    private readonly passwordHasher: PasswordHasher,
     private readonly uniqueIdService: UniqueIdService,
   ) {}
 
@@ -28,7 +28,7 @@ export class RegisterUserUseCase {
 
     const userId = this.uniqueIdService.generate();
     const accountId = this.uniqueIdService.generate();
-    const hashedPassword = await this.passwordHashingService.hash(dto.password);
+    const hashedPassword = await this.passwordHasher.hash(dto.password);
     const date = new Date();
 
     const user = new User(userId, dto.fullname, dto.fullname);
