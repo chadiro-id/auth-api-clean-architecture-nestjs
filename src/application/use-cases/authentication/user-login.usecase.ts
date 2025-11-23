@@ -1,11 +1,13 @@
 import { AccountRepository } from 'src/domain/repositories/account.repository';
 import { UserRepository } from 'src/domain/repositories/user.repository';
 import { UserLoginDto } from './dtos/user-login.dto';
+import { PasswordHasher } from 'src/application/services/password-hasher';
 
 export class UserLoginUseCase {
   constructor(
     private readonly accountRepository: AccountRepository,
     private readonly userRepository: UserRepository,
+    private readonly passwordHasher: PasswordHasher,
   ) {}
 
   async execute(dto: UserLoginDto) {
@@ -14,6 +16,14 @@ export class UserLoginUseCase {
       dto.identifier,
     );
     if (account === null) {
+      throw new Error('Invalid credentials');
+    }
+
+    const isMatch = await this.passwordHasher.compare(
+      account.password as string,
+      dto.password,
+    );
+    if (!isMatch) {
       throw new Error('Invalid credentials');
     }
   }
