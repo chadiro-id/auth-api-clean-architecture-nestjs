@@ -3,9 +3,12 @@ import { UserRepository } from 'src/domain/repositories/user.repository';
 import { UserLoginDto } from './dtos/user-login.dto';
 import { PasswordHasher } from 'src/application/services/password-hasher';
 import { TokenProvider } from 'src/application/services/token-provider';
+import { AuthenticationRepository } from 'src/domain/repositories/authentication.repository';
+import { Authentication } from 'src/domain/entities/authentication';
 
 export class UserLoginUseCase {
   constructor(
+    private readonly authenticationRepository: AuthenticationRepository,
     private readonly accountRepository: AccountRepository,
     private readonly userRepository: UserRepository,
     private readonly passwordHasher: PasswordHasher,
@@ -37,6 +40,18 @@ export class UserLoginUseCase {
     const refreshToken = await this.tokenProvider.createRefreshToken({
       userId: account.userId,
     });
+
+    const date = new Date();
+    const expiryDate = new Date(date);
+    expiryDate.setDate(date.getDate() + 7);
+
+    const authentication = new Authentication(
+      account.id,
+      refreshToken,
+      expiryDate,
+      date,
+    );
+    await this.authenticationRepository.save(authentication);
 
     return {
       user,
