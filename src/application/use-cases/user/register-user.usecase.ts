@@ -3,7 +3,7 @@ import { IdentityRepository } from 'src/domain/repositories/identity.repository'
 import { UserRepository } from 'src/domain/repositories/user.repository';
 import { RegisterUserDto } from './dtos/register-user.dto';
 import { PasswordHasher } from 'src/application/services/password-hasher';
-import { UniqueIdService } from 'src/application/services/unique-id.service';
+import { IdGenerator } from 'src/application/services/id-generator';
 import { User } from 'src/domain/entities/user';
 import { Account } from 'src/domain/entities/account';
 import { Identity } from 'src/domain/entities/identity';
@@ -14,7 +14,7 @@ export class RegisterUserUseCase {
     private readonly accountRepository: AccountRepository,
     private readonly identityRepository: IdentityRepository,
     private readonly passwordHasher: PasswordHasher,
-    private readonly uniqueIdService: UniqueIdService,
+    private readonly idGenerator: IdGenerator,
   ) {}
 
   async execute(dto: RegisterUserDto) {
@@ -26,8 +26,8 @@ export class RegisterUserUseCase {
       throw new Error('User already exists');
     }
 
-    const userId = this.uniqueIdService.generate();
-    const accountId = this.uniqueIdService.generate();
+    const userId = this.idGenerator.generate();
+    const accountId = this.idGenerator.generate();
     const hashedPassword = await this.passwordHasher.hash(dto.password);
     const date = new Date();
 
