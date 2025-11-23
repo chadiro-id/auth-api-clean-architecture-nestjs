@@ -1,4 +1,4 @@
-export type ProviderType = 'EMAIL' | 'GOOGLE';
+export type ProviderType = 'USERNAME' | 'EMAIL' | 'GOOGLE';
 
 export class Identity {
   constructor(
