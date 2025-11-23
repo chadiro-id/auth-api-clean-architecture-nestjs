@@ -1,3 +1,3 @@
-export interface UniqueIdService {
+export interface IdGenerator {
   generate(): string;
 }
