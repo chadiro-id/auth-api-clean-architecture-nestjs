@@ -1,4 +1,4 @@
-export interface AuthTokenService {
+export interface TokenProvider {
   createAccessToken(payload: { userId: string }): Promise<string>;
   createRefreshToken(payload: { userId: string }): Promise<string>;
   verifyRefreshToken(token: string): Promise<string>;
