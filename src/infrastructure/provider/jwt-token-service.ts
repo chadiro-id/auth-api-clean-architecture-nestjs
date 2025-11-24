@@ -15,13 +15,28 @@ export class JwtTokenService implements AuthTokenService {
   ) {}
 
   createAccessToken(payload: TokenPayload): Promise<string> {
-    console.log(payload);
-    throw new Error('Method not implemented.');
+    const secret = this.config.accessTokenSecret as string;
+    const expirationTime = parseInt(
+      this.config.accessTokenExpirationTime as string,
+    );
+    return new Promise((resolve, reject) =>
+      jwt.sign(
+        payload,
+        secret,
+        { expiresIn: expirationTime },
+        (error, encoded) =>
+          error ? reject(error) : resolve(encoded as string),
+      ),
+    );
   }
 
   createRefreshToken(payload: TokenPayload): Promise<string> {
-    console.log(payload);
-    throw new Error('Method not implemented.');
+    const secret = this.config.refreshTokenSecret as string;
+    return new Promise((resolve, reject) =>
+      jwt.sign(payload, secret, { expiresIn: '7d' }, (error, encoded) =>
+        error ? reject(error) : resolve(encoded as string),
+      ),
+    );
   }
 
   verifyRefreshToken(token: string): Promise<TokenPayload | null> {
