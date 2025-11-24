@@ -11,18 +11,27 @@ export class JwtTokenService implements AuthTokenService {
     console.log(payload);
     throw new Error('Method not implemented.');
   }
+
   createRefreshToken(payload: TokenPayload): Promise<string> {
     console.log(payload);
     throw new Error('Method not implemented.');
   }
+
   verifyRefreshToken(token: string): Promise<TokenPayload | null> {
     console.log(token);
     throw new Error('Method not implemented.');
   }
+
   decodeToken(token: string): TokenPayload | null {
-    const decoded = jwt.decode(token) as jwt.JwtPayload;
-    return {
-      userId: decoded.sub || '',
-    };
+    try {
+      const decoded = jwt.decode(token) as jwt.JwtPayload;
+      if (decoded.sub) {
+        return { userId: decoded.sub };
+      }
+      return null;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
   }
 }
