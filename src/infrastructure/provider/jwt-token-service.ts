@@ -3,9 +3,16 @@ import {
   TokenPayload,
 } from 'src/application/services/auth-token-service';
 import * as jwt from 'jsonwebtoken';
+import jwtConfig from '../config/jwt.config';
+import type { ConfigType } from '@nestjs/config';
+import { Inject, Injectable } from '@nestjs/common';
 
+@Injectable()
 export class JwtTokenService implements AuthTokenService {
-  constructor() {}
+  constructor(
+    @Inject(jwtConfig.KEY)
+    private readonly config: ConfigType<typeof jwtConfig>,
+  ) {}
 
   createAccessToken(payload: TokenPayload): Promise<string> {
     console.log(payload);
