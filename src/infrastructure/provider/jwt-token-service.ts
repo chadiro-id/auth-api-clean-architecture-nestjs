@@ -25,8 +25,15 @@ export class JwtTokenService implements AuthTokenService {
   }
 
   verifyRefreshToken(token: string): Promise<TokenPayload | null> {
-    console.log(token);
-    throw new Error('Method not implemented.');
+    const secret = this.config.refreshTokenSecret as string;
+    return new Promise((resolve, reject) =>
+      jwt.verify(token, secret, (error, decoded) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(decoded as TokenPayload);
+      }),
+    );
   }
 
   decodeToken(token: string): TokenPayload | null {
