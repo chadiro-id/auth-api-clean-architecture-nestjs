@@ -29,7 +29,7 @@ export class RegisterUserUseCase {
     const hashedPassword = await this.passwordHasher.hashPassword(dto.password);
     const date = new Date();
 
-    const user = new User(userId, dto.fullname, dto.fullname);
+    const user = new User(userId, dto.fullname, date);
     const account = new Account(
       accountId,
       userId,
