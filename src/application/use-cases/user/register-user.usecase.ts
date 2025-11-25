@@ -1,4 +1,3 @@
-import { AccountRepository } from 'src/domain/repositories/account.repository';
 import { IdentityRepository } from 'src/domain/repositories/identity.repository';
 import { UserRepository } from 'src/domain/repositories/user.repository';
 import { RegisterUserDto } from './dtos/register-user.dto';
@@ -11,7 +10,6 @@ import { Identity } from 'src/domain/entities/identity';
 export class RegisterUserUseCase {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly accountRepository: AccountRepository,
     private readonly identityRepository: IdentityRepository,
     private readonly passwordHasher: PasswordHasher,
     private readonly idGenerator: IdGenerator,
