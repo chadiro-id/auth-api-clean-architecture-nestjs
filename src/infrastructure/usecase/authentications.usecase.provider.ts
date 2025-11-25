@@ -9,8 +9,8 @@ export const USER_LOGIN_USE_CASE_KEY = 'USER_LOGIN_USE_CASE';
 export const UserLoginUseCaseProvider = {
   provide: USER_LOGIN_USE_CASE_KEY,
   useFactory: (
-    accountRepository: AccountRepositoryPostgres,
     authenticationRepository: AuthenticationRepositoryPostgres,
+    accountRepository: AccountRepositoryPostgres,
     userRepository: UserRepositoryPostgres,
     passwordHasher: BcryptPasswordHash,
     authTokenService: JwtTokenService,
