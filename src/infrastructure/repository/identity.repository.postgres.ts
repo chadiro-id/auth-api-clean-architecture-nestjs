@@ -15,9 +15,14 @@ export class IdentityRepositoryPostgres implements IdentityRepository {
     throw new Error('Method not implemented.');
   }
 
-  existsByEmail(email: string): Promise<boolean> {
-    console.log(email);
-    throw new Error('Method not implemented.');
+  async existsByEmail(email: string): Promise<boolean> {
+    const query = {
+      text: 'SELECT id FROM identities WHERE provider_type = $1 AND provider_id = $2',
+      values: ['EMAIL', email],
+    };
+
+    const result = await this.pool.query(query);
+    return result.rows.length > 0;
   }
 
   findByEmail(email: string): Promise<Identity | null> {
