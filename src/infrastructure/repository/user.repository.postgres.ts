@@ -1,11 +1,14 @@
+import { Inject, Injectable } from '@nestjs/common';
 import { Pool } from 'pg';
 import { Account } from 'src/domain/entities/account';
 import { Identity } from 'src/domain/entities/identity';
 import { User } from 'src/domain/entities/user';
 import { UserRepository } from 'src/domain/repositories/user.repository';
+import { PG_POOL_KEY } from '../database/postgres/pg-pool.provider';
 
+@Injectable()
 export class UserRepositoryPostgres implements UserRepository {
-  constructor(private readonly pool: Pool) {}
+  constructor(@Inject(PG_POOL_KEY) private readonly pool: Pool) {}
 
   async saveAggregate(
     user: User,

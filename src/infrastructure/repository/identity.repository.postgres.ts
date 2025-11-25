@@ -1,9 +1,12 @@
+import { Inject, Injectable } from '@nestjs/common';
 import { Pool } from 'pg';
 import { Identity } from 'src/domain/entities/identity';
 import { IdentityRepository } from 'src/domain/repositories/identity.repository';
+import { PG_POOL_KEY } from '../database/postgres/pg-pool.provider';
 
+@Injectable()
 export class IdentityRepositoryPostgres implements IdentityRepository {
-  constructor(private readonly pool: Pool) {}
+  constructor(@Inject(PG_POOL_KEY) private readonly pool: Pool) {}
 
   save(identity: Identity): Promise<void> {
     console.log(identity);
