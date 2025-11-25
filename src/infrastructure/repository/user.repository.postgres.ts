@@ -59,7 +59,7 @@ export class UserRepositoryPostgres implements UserRepository {
 
   async findById(id: string): Promise<User | null> {
     const query = {
-      text: '',
+      text: 'SELECT * FROM users WHERE id = $1',
       values: [id],
     };
 
