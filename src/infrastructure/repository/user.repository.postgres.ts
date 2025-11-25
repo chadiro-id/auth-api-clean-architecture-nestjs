@@ -56,8 +56,19 @@ export class UserRepositoryPostgres implements UserRepository {
       client.release();
     }
   }
+
   async findById(id: string): Promise<User | null> {
-    console.log(id);
-    throw new Error('Method not implemented.');
+    const query = {
+      text: '',
+      values: [id],
+    };
+
+    const result = await this.pool.query(query);
+    if (result.rows.length === 0) {
+      return null;
+    }
+    const row = result.rows[0];
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    return new User(row.id, row.name, row.created_at);
   }
 }
