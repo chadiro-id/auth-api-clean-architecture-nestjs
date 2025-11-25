@@ -13,7 +13,7 @@ export class AuthenticationRepositoryPostgres
       values: [
         authentication.accountId,
         authentication.token,
-        authentication.expiresAt,
+        authentication.expiryDate,
         authentication.createdAt,
       ],
     };
