@@ -19,7 +19,7 @@ export class AccountRepositoryPostgres implements AccountRepository {
     providerId: string,
   ): Promise<Account | null> {
     const query = {
-      text: 'SELECT a.* FROM accounts a LEFT JOIN identitites i ON a.id = i.account_id WHERE i.provider_type = $1 AND i.provider_id = $2',
+      text: 'SELECT a.* FROM accounts a LEFT JOIN identities i ON a.id = i.account_id WHERE i.provider_type = $1 AND i.provider_id = $2',
       values: [providerType, providerId],
     };
 
