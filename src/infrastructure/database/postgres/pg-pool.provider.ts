@@ -7,10 +7,7 @@ export const PG_POOL_KEY = 'PG_POOL';
 export const PgPoolProvider = {
   provide: PG_POOL_KEY,
   useFactory: (config: ConfigType<typeof databaseConfig>): Pool => {
-    const pool = new Pool({
-      ...config.pg,
-      port: config.pg.port ? parseInt(config.pg.port) : 5432,
-    });
+    const pool = new Pool(config.pg);
 
     pool.on('connect', () => {
       console.log('PostgreSQL pool connected.');
