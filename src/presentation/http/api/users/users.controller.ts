@@ -7,13 +7,13 @@ import {
   Post,
 } from '@nestjs/common';
 import { RegisterUserUseCase } from 'src/application/use-cases/user/register-user.usecase';
-import { REGISTER_USER_USE_CASE_KEY } from 'src/infrastructure/usecase/users.usecase.provider';
 import { RegisterRequestDto } from './users.dto';
+import { REGISTER_USER_USE_CASE_TOKEN } from './users.provider';
 
 @Controller('users')
 export class UsersController {
   constructor(
-    @Inject(REGISTER_USER_USE_CASE_KEY)
+    @Inject(REGISTER_USER_USE_CASE_TOKEN)
     private readonly registerUserUseCase: RegisterUserUseCase,
   ) {}
 
