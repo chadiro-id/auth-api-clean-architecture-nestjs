@@ -12,9 +12,10 @@ export class AuthenticationRepositoryPostgres
 
   async save(authentication: Authentication): Promise<void> {
     const query = {
-      text: 'INSERT INTO authentications (account_id, token, expiry_date, created_at) VALUES ($1, $2, $3, $4)',
+      text: 'INSERT INTO authentications VALUES ($1, $2, $3, $4, $5)',
       values: [
-        authentication.accountId,
+        authentication.id,
+        authentication.userId,
         authentication.token,
         authentication.expiryDate,
         authentication.createdAt,
