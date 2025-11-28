@@ -1,6 +1,7 @@
 export class Authentication {
   constructor(
-    public readonly accountId: string,
+    public readonly id: string,
+    public readonly userId: string,
     public readonly token: string,
     public readonly expiryDate: Date,
     public readonly createdAt: Date,
