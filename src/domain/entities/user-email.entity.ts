@@ -2,11 +2,11 @@ import { Email } from '../value-objects/email.vo';
 
 export class UserEmail {
   constructor(
-    private readonly id: UserEmailId,
+    public readonly id: string,
     private email: Email,
     private isPrimary: boolean,
     private isVerified: boolean,
-    private readonly createdAt: Date,
+    public readonly createdAt: Date,
   ) {}
 
   // Behavior methods
@@ -23,11 +23,6 @@ export class UserEmail {
     this.isVerified = false; // Reset verification ketika ganti email
   }
 
-  // Getters
-  getId(): UserEmailId {
-    return this.id;
-  }
-
   getEmail(): Email {
     return this.email;
   }
@@ -38,18 +33,5 @@ export class UserEmail {
 
   isVerifiedEmail(): boolean {
     return this.isVerified;
-  }
-}
-
-// Value Object untuk UserEmail ID
-export class UserEmailId {
-  constructor(private readonly value: string) {}
-
-  equals(other: UserEmailId): boolean {
-    return this.value === other.value;
-  }
-
-  toString(): string {
-    return this.value;
   }
 }
