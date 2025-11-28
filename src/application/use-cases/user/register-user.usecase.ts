@@ -1,48 +1,49 @@
-import { IdentityRepository } from 'src/domain/repositories/identity.repository';
 import { UserRepository } from 'src/domain/repositories/user.repository';
 import { RegisterUserDto } from './dtos/register-user.dto';
 import { PasswordHasher } from 'src/application/services/password-hasher';
 import { IdGenerator } from 'src/application/services/id-generator';
 import { User } from 'src/domain/entities/user';
-import { Account } from 'src/domain/entities/account';
-import { Identity } from 'src/domain/entities/identity';
 
 export class RegisterUserUseCase {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly identityRepository: IdentityRepository,
     private readonly passwordHasher: PasswordHasher,
     private readonly idGenerator: IdGenerator,
   ) {}
 
   async execute(dto: RegisterUserDto) {
-    const isIdentityExists = await this.identityRepository.existsByEmail(
+    const isExistsByUsername = await this.userRepository.existsByUsername(
       dto.email,
     );
 
-    if (isIdentityExists) {
-      throw new Error('User already exists');
+    if (isExistsByUsername) {
+      throw new Error('username not available');
     }
 
-    const userId = this.idGenerator.generate();
-    const accountId = this.idGenerator.generate();
+    const isExistsByEmail = await this.userRepository.existsByEmail(dto.email);
+
+    if (isExistsByEmail) {
+      throw new Error('already exist');
+    }
+
+    const id = this.idGenerator.generate();
     const hashedPassword = await this.passwordHasher.hashPassword(dto.password);
     const date = new Date();
 
-    const user = new User(userId, dto.fullname, date);
-    const account = new Account(
-      accountId,
-      userId,
+    const user = new User(
+      id,
+      dto.username,
       hashedPassword,
-      'ACTIVE',
-      false,
+      dto.email,
+      dto.fullname,
+      date,
       date,
     );
-    const identity = new Identity(accountId, 'EMAIL', dto.email, date);
 
-    await this.userRepository.saveAggregate(user, account, identity);
+    await this.userRepository.save(user);
     return {
-      id: userId,
+      id,
+      username: dto.username,
       email: dto.email,
       fullname: dto.fullname,
     };
