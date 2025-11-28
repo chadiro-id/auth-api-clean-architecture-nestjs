@@ -1,7 +1,15 @@
-export class User {
+import { Entity } from '../base/entity';
+
+export class User extends Entity {
   constructor(
-    public readonly id: string,
-    public readonly name: string,
-    public readonly createdAt: Date,
-  ) {}
+    id: string,
+    public username: string | null,
+    public email: string,
+    public password: string | null,
+    public fullname: string,
+    createdAt: Date,
+    public updatedAt: Date,
+  ) {
+    super(id, createdAt);
+  }
 }
