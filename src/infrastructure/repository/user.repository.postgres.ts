@@ -1,7 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { Inject, Injectable } from '@nestjs/common';
 import { Pool } from 'pg';
-import { Account } from 'src/domain/entities/account';
-import { Identity } from 'src/domain/entities/identity';
 import { User } from 'src/domain/entities/user';
 import { UserRepository } from 'src/domain/repositories/user.repository';
 import { PG_POOL_KEY } from '../database/postgres/pg-pool.provider';
@@ -10,51 +9,21 @@ import { PG_POOL_KEY } from '../database/postgres/pg-pool.provider';
 export class UserRepositoryPostgres implements UserRepository {
   constructor(@Inject(PG_POOL_KEY) private readonly pool: Pool) {}
 
-  async saveAggregate(
-    user: User,
-    account: Account,
-    identity: Identity,
-  ): Promise<void> {
-    const inserUserQuery = {
-      text: 'INSERT INTO users VALUES ($1, $2, $3)',
-      values: [user.id, user.name, user.createdAt],
-    };
-    const insertAccountQuery = {
-      text: 'INSERT INTO accounts VALUES ($1, $2, $3, $4, $5, $6)',
+  async save(user: User): Promise<void> {
+    const query = {
+      text: 'INSERT INTO users VALUES ($1, $2, $3, $4, $5, $6, $7)',
       values: [
-        account.id,
-        account.userId,
-        account.password,
-        account.status,
-        account.isDelete,
-        account.createdAt,
-      ],
-    };
-    const insertIdentityQuery = {
-      text: 'INSERT INTO identities (account_id, provider_type, provider_id, created_at) VALUES ($1, $2, $3, $4)',
-      values: [
-        identity.accountId,
-        identity.providerType,
-        identity.providerId,
-        identity.createdAt,
+        user.id,
+        user.username,
+        user.password,
+        user.email,
+        user.fullname,
+        user.createdAt,
+        user.updatedAt,
       ],
     };
 
-    const client = await this.pool.connect();
-    try {
-      await client.query('BEGIN');
-
-      await client.query(inserUserQuery);
-      await client.query(insertAccountQuery);
-      await client.query(insertIdentityQuery);
-
-      await client.query('COMMIT');
-    } catch (error) {
-      await client.query('ROLLBACK');
-      throw error;
-    } finally {
-      client.release();
-    }
+    await this.pool.query(query);
   }
 
   async findById(id: string): Promise<User | null> {
@@ -68,7 +37,15 @@ export class UserRepositoryPostgres implements UserRepository {
       return null;
     }
     const row = result.rows[0];
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    return new User(row.id, row.name, row.created_at);
+
+    return new User(
+      row.id,
+      row.username,
+      row.password,
+      row.email,
+      row.fullname,
+      row.created_at,
+      row.updated_at,
+    );
   }
 }
