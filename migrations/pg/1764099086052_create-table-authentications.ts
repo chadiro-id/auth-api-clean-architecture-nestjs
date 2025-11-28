@@ -3,10 +3,10 @@ import { MigrationBuilder } from 'node-pg-migrate';
 export async function up(pgm: MigrationBuilder): Promise<void> {
   pgm.createTable('authentications', {
     id: {
-      type: 'UUID',
-      default: pgm.func('gen_random_uuid()'),
+      type: 'VARCHAR(50)',
+      primaryKey: true,
     },
-    account_id: {
+    user_id: {
       type: 'VARCHAR(50)',
       notNull: true,
     },
@@ -23,10 +23,10 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
     },
   });
 
-  pgm.addConstraint('authentications', 'authentications_account_id_fkey', {
+  pgm.addConstraint('authentications', 'authentications_user_id_fkey', {
     foreignKeys: {
-      columns: 'account_id',
-      references: 'accounts(id)',
+      columns: 'user_id',
+      references: 'users(id)',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     },
@@ -34,6 +34,6 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
 }
 
 export async function down(pgm: MigrationBuilder): Promise<void> {
-  pgm.dropConstraint('authentications', 'authentications_account_id_fkey');
+  pgm.dropConstraint('authentications', 'authentications_user_id_fkey');
   pgm.dropTable('authentications');
 }
