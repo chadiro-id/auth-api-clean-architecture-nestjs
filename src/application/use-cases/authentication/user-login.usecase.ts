@@ -1,52 +1,51 @@
-import { AccountRepository } from 'src/domain/repositories/account.repository';
 import { UserRepository } from 'src/domain/repositories/user.repository';
 import { UserLoginDto } from './dtos/user-login.dto';
 import { PasswordHasher } from 'src/application/services/password-hasher';
 import { AuthTokenService } from 'src/application/services/auth-token-service';
 import { AuthenticationRepository } from 'src/domain/repositories/authentication.repository';
 import { Authentication } from 'src/domain/entities/authentication';
+import { IdGenerator } from 'src/application/services/id-generator';
 
 export class UserLoginUseCase {
   constructor(
     private readonly authenticationRepository: AuthenticationRepository,
-    private readonly accountRepository: AccountRepository,
     private readonly userRepository: UserRepository,
     private readonly passwordHasher: PasswordHasher,
     private readonly tokenProvider: AuthTokenService,
+    private readonly idGenerator: IdGenerator,
   ) {}
 
   async execute(dto: UserLoginDto) {
-    const account = await this.accountRepository.findByProvider(
-      dto.type,
+    const user = await this.userRepository.findByUsernameOrEmail(
       dto.identifier,
     );
-    if (account === null) {
+    if (user === null) {
       throw new Error('Invalid credentials');
     }
 
     const isMatch = await this.passwordHasher.comparePassword(
       dto.password,
-      account.password as string,
+      user.password,
     );
     if (!isMatch) {
       throw new Error('Invalid credentials');
     }
 
-    const user = await this.userRepository.findById(account.userId);
     const accessToken = await this.tokenProvider.createAccessToken({
-      userId: account.userId,
+      userId: user.id,
     });
-
     const refreshToken = await this.tokenProvider.createRefreshToken({
-      userId: account.userId,
+      userId: user.id,
     });
 
+    const id = this.idGenerator.generate();
     const date = new Date();
     const expiryDate = new Date(date);
     expiryDate.setDate(date.getDate() + 7);
 
     const authentication = new Authentication(
-      account.id,
+      id,
+      user.id,
       refreshToken,
       expiryDate,
       date,
