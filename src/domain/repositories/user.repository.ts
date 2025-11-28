@@ -7,4 +7,5 @@ export interface UserRepository {
   findByEmail(email: string): Promise<User | null>;
   existsByUsername(username: string): Promise<boolean>;
   existsByEmail(email: string): Promise<boolean>;
+  existsByUsernameOrEmail(identifier: string): Promise<boolean>;
 }
