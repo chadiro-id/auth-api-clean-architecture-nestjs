@@ -6,11 +6,26 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
       type: 'VARCHAR(50)',
       primaryKey: true,
     },
-    name: {
-      type: 'TEXT',
+    username: {
+      type: 'VARCHAR(50)',
+      notNull: true,
+    },
+    password: {
+      type: 'VARCHAR(100)',
+      notNull: true,
+    },
+    email: {
+      type: 'VARCHAR(255)',
+      notNull: true,
+    },
+    fullname: {
+      type: 'VARCHAR(1000)',
       notNull: true,
     },
     created_at: {
+      type: 'TIMESTAMPTZ',
+    },
+    update_at: {
       type: 'TIMESTAMPTZ',
     },
   });
