@@ -94,4 +94,24 @@ export class UserRepositoryPostgres implements UserRepository {
       row.updated_at,
     );
   }
+
+  async existsByUsername(username: string): Promise<boolean> {
+    const query = {
+      text: 'SELECT id FROM users WHERE username = $1',
+      values: [username],
+    };
+
+    const result = await this.pool.query(query);
+    return result.rows.length > 0;
+  }
+
+  async existsByEmail(email: string): Promise<boolean> {
+    const query = {
+      text: 'SELECT id FROM users WHERE email = $1',
+      values: [email],
+    };
+
+    const result = await this.pool.query(query);
+    return result.rows.length > 0;
+  }
 }
