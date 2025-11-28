@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { Inject, Injectable } from '@nestjs/common';
 import { Pool } from 'pg';
 import { Authentication } from 'src/domain/entities/authentication';
@@ -26,7 +27,23 @@ export class AuthenticationRepositoryPostgres
   }
 
   async findByToken(token: string): Promise<Authentication | null> {
-    console.log(token);
-    throw new Error('Method not implemented.');
+    const query = {
+      text: 'SELECT * FROM authentications WHERE token = $1',
+      values: [token],
+    };
+
+    const result = await this.pool.query(query);
+    if (result.rows.length === 0) {
+      return null;
+    }
+
+    const row = result.rows[0];
+    return new Authentication(
+      row.id,
+      row.user_id,
+      row.token,
+      row.expiry_date,
+      row.created_at,
+    );
   }
 }
