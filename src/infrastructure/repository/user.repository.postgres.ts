@@ -48,4 +48,50 @@ export class UserRepositoryPostgres implements UserRepository {
       row.updated_at,
     );
   }
+
+  async findByUsername(username: string): Promise<User | null> {
+    const query = {
+      text: 'SELECT * FROM users WHERE username = $1',
+      values: [username],
+    };
+
+    const result = await this.pool.query(query);
+    if (result.rows.length === 0) {
+      return null;
+    }
+    const row = result.rows[0];
+
+    return new User(
+      row.id,
+      row.username,
+      row.password,
+      row.email,
+      row.fullname,
+      row.created_at,
+      row.updated_at,
+    );
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    const query = {
+      text: 'SELECT * FROM users WHERE email = $1',
+      values: [email],
+    };
+
+    const result = await this.pool.query(query);
+    if (result.rows.length === 0) {
+      return null;
+    }
+    const row = result.rows[0];
+
+    return new User(
+      row.id,
+      row.username,
+      row.password,
+      row.email,
+      row.fullname,
+      row.created_at,
+      row.updated_at,
+    );
+  }
 }
