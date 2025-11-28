@@ -1,0 +1,6 @@
+export abstract class Entity {
+  constructor(
+    public readonly id: string,
+    public readonly createdAt: Date,
+  ) {}
+}
