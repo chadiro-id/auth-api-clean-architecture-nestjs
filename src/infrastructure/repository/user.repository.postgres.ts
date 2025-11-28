@@ -95,6 +95,29 @@ export class UserRepositoryPostgres implements UserRepository {
     );
   }
 
+  async findByUsernameOrEmail(identifier: string): Promise<User | null> {
+    const query = {
+      text: 'SELECT * FROM users WHERE username = $1 OR email = $1',
+      values: [identifier],
+    };
+
+    const result = await this.pool.query(query);
+    if (result.rows.length === 0) {
+      return null;
+    }
+    const row = result.rows[0];
+
+    return new User(
+      row.id,
+      row.username,
+      row.password,
+      row.email,
+      row.fullname,
+      row.created_at,
+      row.updated_at,
+    );
+  }
+
   async existsByUsername(username: string): Promise<boolean> {
     const query = {
       text: 'SELECT id FROM users WHERE username = $1',
