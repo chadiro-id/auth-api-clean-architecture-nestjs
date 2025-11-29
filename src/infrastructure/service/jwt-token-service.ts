@@ -39,6 +39,18 @@ export class JwtTokenService implements AuthTokenService {
     );
   }
 
+  verifyAccessToken(token: string): Promise<TokenPayload | null> {
+    const secret = this.config.accessTokenSecret as string;
+    return new Promise((resolve, reject) =>
+      jwt.verify(token, secret, (error, decoded) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(decoded as TokenPayload);
+      }),
+    );
+  }
+
   verifyRefreshToken(token: string): Promise<TokenPayload | null> {
     const secret = this.config.refreshTokenSecret as string;
     return new Promise((resolve, reject) =>
