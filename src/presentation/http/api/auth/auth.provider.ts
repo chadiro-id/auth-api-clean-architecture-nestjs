@@ -10,9 +10,9 @@ import { BcryptPasswordHash } from 'src/infrastructure/service/bcrypt-password-h
 import { JwtTokenManager } from 'src/infrastructure/service/jwt-token-manager';
 import { NanoidGenerator } from 'src/infrastructure/service/nanoid-generator';
 
-export const USER_LOGIN_USE_CASE_TOKEN = Symbol('USER_LOGIN_USE_CASE');
-export const UserLoginUseCaseProvider = {
-  provide: USER_LOGIN_USE_CASE_TOKEN,
+export const LOGIN_USE_CASE_TOKEN = Symbol('LOGIN_USE_CASE_TOKEN');
+export const LoginUseCaseProvider = {
+  provide: LOGIN_USE_CASE_TOKEN,
   useFactory: (
     authenticationRepository: AuthenticationRepository,
     userRepository: UserRepository,
