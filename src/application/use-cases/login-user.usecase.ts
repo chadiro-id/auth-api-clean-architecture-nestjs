@@ -1,5 +1,5 @@
 import { UserRepository } from 'src/domain/repositories/user.repository';
-import { UserLoginDto } from '../dtos/user-login.dto';
+import { UserLoginDto } from '../dtos/login-user.dto';
 import { PasswordHasher } from 'src/application/security/password-hasher';
 import { AuthTokenManager } from 'src/application/security/auth-token-manager';
 import { AuthenticationRepository } from 'src/domain/repositories/authentication.repository';
