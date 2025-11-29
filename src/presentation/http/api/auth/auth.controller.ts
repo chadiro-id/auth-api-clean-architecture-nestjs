@@ -7,8 +7,8 @@ import {
   Post,
 } from '@nestjs/common';
 import { UserLoginUseCase } from 'src/application/use-cases/auth/user-login.usecase';
-import { LoginRequestDto } from './authentications.dto';
-import { USER_LOGIN_USE_CASE_TOKEN } from './authentications.provider';
+import { LoginRequestDto } from './auth.dto';
+import { USER_LOGIN_USE_CASE_TOKEN } from './auth.provider';
 
 @Controller('authentications')
 export class AuthenticationsController {
