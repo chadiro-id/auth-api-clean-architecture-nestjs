@@ -6,7 +6,7 @@ import {
   Inject,
   Post,
 } from '@nestjs/common';
-import { UserLoginUseCase } from 'src/application/use-cases/user-login.usecase';
+import { UserLoginUseCase } from 'src/application/use-cases/login-user.usecase';
 import { LoginRequestDto } from './auth.dto';
 import { USER_LOGIN_USE_CASE_TOKEN } from './auth.provider';
 

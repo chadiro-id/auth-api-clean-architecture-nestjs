@@ -1,7 +1,7 @@
 import { AuthTokenManager } from 'src/application/security/auth-token-manager';
 import { IdGenerator } from 'src/application/commons/id-generator';
 import { PasswordHasher } from 'src/application/security/password-hasher';
-import { UserLoginUseCase } from 'src/application/use-cases/user-login.usecase';
+import { UserLoginUseCase } from 'src/application/use-cases/login-user.usecase';
 import { AuthenticationRepository } from 'src/domain/repositories/authentication.repository';
 import { UserRepository } from 'src/domain/repositories/user.repository';
 import { AuthenticationRepositoryPostgres } from 'src/infrastructure/repository/authentication.repository.postgres';
