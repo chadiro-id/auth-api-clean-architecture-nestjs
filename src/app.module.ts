@@ -1,14 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AuthenticationsModule } from './presentation/http/api/auth/authentications.module';
+import { AuthModule } from './presentation/http/api/auth/auth.module';
 import { UsersModule } from './presentation/http/api/users/users.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    AuthenticationsModule,
-    UsersModule,
-  ],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), AuthModule, UsersModule],
   controllers: [],
   providers: [],
 })

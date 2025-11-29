@@ -9,4 +9,4 @@ import { UserLoginUseCaseProvider } from './auth.provider';
   providers: [UserLoginUseCaseProvider],
   controllers: [AuthenticationsController],
 })
-export class AuthenticationsModule {}
+export class AuthModule {}
