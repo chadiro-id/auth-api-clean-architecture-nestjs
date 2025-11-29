@@ -11,7 +11,7 @@ import { LoginRequestDto } from './auth.dto';
 import { USER_LOGIN_USE_CASE_TOKEN } from './auth.provider';
 
 @Controller('authentications')
-export class AuthenticationsController {
+export class AuthController {
   constructor(
     @Inject(USER_LOGIN_USE_CASE_TOKEN)
     private readonly userLoginUseCase: UserLoginUseCase,
