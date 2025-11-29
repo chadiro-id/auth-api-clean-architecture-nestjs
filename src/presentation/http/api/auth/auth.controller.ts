@@ -6,7 +6,7 @@ import {
   Inject,
   Post,
 } from '@nestjs/common';
-import { UserLoginUseCase } from 'src/application/use-cases/login-user.usecase';
+import { LoginUserUseCase } from 'src/application/use-cases/login-user.usecase';
 import { LoginRequestDto } from './auth.dto';
 import { USER_LOGIN_USE_CASE_TOKEN } from './auth.provider';
 
@@ -14,13 +14,13 @@ import { USER_LOGIN_USE_CASE_TOKEN } from './auth.provider';
 export class AuthController {
   constructor(
     @Inject(USER_LOGIN_USE_CASE_TOKEN)
-    private readonly userLoginUseCase: UserLoginUseCase,
+    private readonly loginUseCase: LoginUserUseCase,
   ) {}
 
   @Post()
   @HttpCode(HttpStatus.OK)
   async login(@Body() dto: LoginRequestDto) {
-    const data = await this.userLoginUseCase.execute(dto);
+    const data = await this.loginUseCase.execute(dto);
     return { data };
   }
 }

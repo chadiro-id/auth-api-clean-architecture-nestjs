@@ -6,7 +6,7 @@ import { AuthenticationRepository } from 'src/domain/repositories/authentication
 import { Authentication } from 'src/domain/entities/authentication';
 import { IdGenerator } from 'src/application/commons/id-generator';
 
-export class UserLoginUseCase {
+export class LoginUserUseCase {
   constructor(
     private readonly authenticationRepository: AuthenticationRepository,
     private readonly userRepository: UserRepository,
