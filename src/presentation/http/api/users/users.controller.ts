@@ -8,7 +8,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { RegisterUserUseCase } from 'src/application/use-cases/user/register-user.usecase';
+import { RegisterUserUseCase } from 'src/application/use-cases/register-user.usecase';
 import { RegisterRequestDto } from './users.dto';
 import { REGISTER_USER_USE_CASE_TOKEN } from './users.provider';
 import { AuthGuard } from '../auth/guards/auth.guard';
