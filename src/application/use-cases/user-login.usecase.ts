@@ -1,7 +1,7 @@
 import { UserRepository } from 'src/domain/repositories/user.repository';
 import { UserLoginDto } from '../dtos/user-login.dto';
 import { PasswordHasher } from 'src/application/security/password-hasher';
-import { AuthTokenService } from 'src/application/security/auth-token-manager';
+import { AuthTokenManager } from 'src/application/security/auth-token-manager';
 import { AuthenticationRepository } from 'src/domain/repositories/authentication.repository';
 import { Authentication } from 'src/domain/entities/authentication';
 import { IdGenerator } from 'src/application/commons/id-generator';
@@ -11,7 +11,7 @@ export class UserLoginUseCase {
     private readonly authenticationRepository: AuthenticationRepository,
     private readonly userRepository: UserRepository,
     private readonly passwordHasher: PasswordHasher,
-    private readonly tokenProvider: AuthTokenService,
+    private readonly tokenManager: AuthTokenManager,
     private readonly idGenerator: IdGenerator,
   ) {}
 
@@ -31,10 +31,10 @@ export class UserLoginUseCase {
       throw new Error('Invalid credentials');
     }
 
-    const accessToken = await this.tokenProvider.createAccessToken({
+    const accessToken = await this.tokenManager.createAccessToken({
       userId: user.id,
     });
-    const refreshToken = await this.tokenProvider.createRefreshToken({
+    const refreshToken = await this.tokenManager.createRefreshToken({
       userId: user.id,
     });
 
