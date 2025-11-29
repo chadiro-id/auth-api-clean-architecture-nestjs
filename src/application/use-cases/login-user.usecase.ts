@@ -1,5 +1,5 @@
 import { UserRepository } from 'src/domain/repositories/user.repository';
-import { UserLoginDto } from '../dtos/login-user.dto';
+import { LoginRequest } from '../dtos/login-user.dto';
 import { PasswordHasher } from 'src/application/security/password-hasher';
 import { AuthTokenManager } from 'src/application/security/auth-token-manager';
 import { AuthenticationRepository } from 'src/domain/repositories/authentication.repository';
@@ -15,16 +15,16 @@ export class LoginUserUseCase {
     private readonly idGenerator: IdGenerator,
   ) {}
 
-  async execute(dto: UserLoginDto) {
+  async execute(request: LoginRequest) {
     const user = await this.userRepository.findByUsernameOrEmail(
-      dto.identifier,
+      request.identifier,
     );
     if (user === null) {
       throw new Error('Invalid credentials');
     }
 
     const isMatch = await this.passwordHasher.comparePassword(
-      dto.password,
+      request.password,
       user.password,
     );
     if (!isMatch) {
