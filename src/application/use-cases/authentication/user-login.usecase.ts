@@ -4,7 +4,7 @@ import { PasswordHasher } from 'src/application/services/password-hasher';
 import { AuthTokenService } from 'src/application/services/auth-token-service';
 import { AuthenticationRepository } from 'src/domain/repositories/authentication.repository';
 import { Authentication } from 'src/domain/entities/authentication';
-import { IdGenerator } from 'src/application/services/id-generator';
+import { IdGenerator } from 'src/application/commons/id-generator';
 
 export class UserLoginUseCase {
   constructor(

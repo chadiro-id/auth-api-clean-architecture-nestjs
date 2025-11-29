@@ -1,5 +1,5 @@
 import { FactoryProvider } from '@nestjs/common';
-import { IdGenerator } from 'src/application/services/id-generator';
+import { IdGenerator } from 'src/application/commons/id-generator';
 import { PasswordHasher } from 'src/application/services/password-hasher';
 import { RegisterUserUseCase } from 'src/application/use-cases/user/register-user.usecase';
 import { UserRepository } from 'src/domain/repositories/user.repository';

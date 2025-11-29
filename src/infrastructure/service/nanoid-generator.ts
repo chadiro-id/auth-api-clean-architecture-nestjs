@@ -1,4 +1,4 @@
-import { IdGenerator } from 'src/application/services/id-generator';
+import { IdGenerator } from 'src/application/commons/id-generator';
 import { nanoid } from 'nanoid';
 
 export class NanoidGenerator implements IdGenerator {

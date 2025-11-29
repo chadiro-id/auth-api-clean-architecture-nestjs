@@ -1,7 +1,7 @@
 import { UserRepository } from 'src/domain/repositories/user.repository';
 import { RegisterUserDto } from './dtos/register-user.dto';
 import { PasswordHasher } from 'src/application/services/password-hasher';
-import { IdGenerator } from 'src/application/services/id-generator';
+import { IdGenerator } from 'src/application/commons/id-generator';
 import { User } from 'src/domain/entities/user';
 
 export class RegisterUserUseCase {

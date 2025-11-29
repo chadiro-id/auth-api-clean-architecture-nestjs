@@ -1,5 +1,5 @@
 import { AuthTokenService } from 'src/application/services/auth-token-service';
-import { IdGenerator } from 'src/application/services/id-generator';
+import { IdGenerator } from 'src/application/commons/id-generator';
 import { PasswordHasher } from 'src/application/services/password-hasher';
 import { UserLoginUseCase } from 'src/application/use-cases/authentication/user-login.usecase';
 import { AuthenticationRepository } from 'src/domain/repositories/authentication.repository';
