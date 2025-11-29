@@ -1,5 +1,5 @@
 import { UserRepository } from 'src/domain/repositories/user.repository';
-import { RegisterUserDto } from '../dtos/register-user.dto';
+import { RegisterUserRequest } from '../dtos/register-user.dto';
 import { PasswordHasher } from 'src/application/security/password-hasher';
 import { IdGenerator } from 'src/application/commons/id-generator';
 import { User } from 'src/domain/entities/user';
@@ -11,31 +11,35 @@ export class RegisterUserUseCase {
     private readonly idGenerator: IdGenerator,
   ) {}
 
-  async execute(dto: RegisterUserDto) {
+  async execute(request: RegisterUserRequest) {
     const isExistsByUsername = await this.userRepository.existsByUsername(
-      dto.email,
+      request.email,
     );
 
     if (isExistsByUsername) {
       throw new Error('username not available');
     }
 
-    const isExistsByEmail = await this.userRepository.existsByEmail(dto.email);
+    const isExistsByEmail = await this.userRepository.existsByEmail(
+      request.email,
+    );
 
     if (isExistsByEmail) {
       throw new Error('already exist');
     }
 
     const id = this.idGenerator.generate();
-    const hashedPassword = await this.passwordHasher.hashPassword(dto.password);
+    const hashedPassword = await this.passwordHasher.hashPassword(
+      request.password,
+    );
     const date = new Date();
 
     const user = new User(
       id,
-      dto.username,
+      request.username,
       hashedPassword,
-      dto.email,
-      dto.fullname,
+      request.email,
+      request.fullname,
       date,
       date,
     );
@@ -43,9 +47,9 @@ export class RegisterUserUseCase {
     await this.userRepository.save(user);
     return {
       id,
-      username: dto.username,
-      email: dto.email,
-      fullname: dto.fullname,
+      username: request.username,
+      email: request.email,
+      fullname: request.fullname,
     };
   }
 }
