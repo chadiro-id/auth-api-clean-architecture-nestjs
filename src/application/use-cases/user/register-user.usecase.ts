@@ -1,6 +1,6 @@
 import { UserRepository } from 'src/domain/repositories/user.repository';
 import { RegisterUserDto } from './dtos/register-user.dto';
-import { PasswordHasher } from 'src/application/services/password-hasher';
+import { PasswordHasher } from 'src/application/security/password-hasher';
 import { IdGenerator } from 'src/application/commons/id-generator';
 import { User } from 'src/domain/entities/user';
 

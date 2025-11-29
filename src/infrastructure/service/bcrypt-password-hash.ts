@@ -1,4 +1,4 @@
-import { PasswordHasher } from 'src/application/services/password-hasher';
+import { PasswordHasher } from 'src/application/security/password-hasher';
 import * as bcrypt from 'bcryptjs';
 
 export class BcryptPasswordHash implements PasswordHasher {
