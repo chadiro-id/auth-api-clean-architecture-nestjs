@@ -1,7 +1,7 @@
 import { UserRepository } from 'src/domain/repositories/user.repository';
 import { UserLoginDto } from '../dtos/user-login.dto';
 import { PasswordHasher } from 'src/application/security/password-hasher';
-import { AuthTokenService } from 'src/application/security/auth-token-service';
+import { AuthTokenService } from 'src/application/security/auth-token-manager';
 import { AuthenticationRepository } from 'src/domain/repositories/authentication.repository';
 import { Authentication } from 'src/domain/entities/authentication';
 import { IdGenerator } from 'src/application/commons/id-generator';

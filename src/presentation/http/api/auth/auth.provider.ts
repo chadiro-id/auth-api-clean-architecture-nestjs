@@ -1,4 +1,4 @@
-import { AuthTokenService } from 'src/application/security/auth-token-service';
+import { AuthTokenService } from 'src/application/security/auth-token-manager';
 import { IdGenerator } from 'src/application/commons/id-generator';
 import { PasswordHasher } from 'src/application/security/password-hasher';
 import { UserLoginUseCase } from 'src/application/use-cases/user-login.usecase';

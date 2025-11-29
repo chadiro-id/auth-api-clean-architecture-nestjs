@@ -1,7 +1,7 @@
 import {
   AuthTokenService,
   TokenPayload,
-} from 'src/application/security/auth-token-service';
+} from 'src/application/security/auth-token-manager';
 import * as jwt from 'jsonwebtoken';
 import jwtConfig from '../config/jwt.config';
 import type { ConfigType } from '@nestjs/config';
