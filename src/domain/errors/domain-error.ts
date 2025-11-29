@@ -1,15 +1,14 @@
 /**
- * Base class for Domain atau Application Errors.
+ * Base class for Domain and Application Errors.
  */
 export class DomainError extends Error {
-  public readonly tag: string;
+  public readonly code: string;
 
-  constructor(message: string, tag: string) {
+  constructor(message: string, code: string) {
     super(message);
     this.name = 'DomainError';
-    this.tag = tag;
+    this.code = code;
 
-    // Keep stack traces
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, DomainError);
     }
