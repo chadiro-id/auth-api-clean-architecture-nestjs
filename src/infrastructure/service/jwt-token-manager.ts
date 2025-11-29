@@ -8,7 +8,7 @@ import type { ConfigType } from '@nestjs/config';
 import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
-export class JwtTokenService implements AuthTokenManager {
+export class JwtTokenManager implements AuthTokenManager {
   constructor(
     @Inject(jwtConfig.KEY)
     private readonly config: ConfigType<typeof jwtConfig>,
