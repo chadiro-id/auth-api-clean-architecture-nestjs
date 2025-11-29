@@ -1,6 +1,6 @@
 import { UserRepository } from 'src/domain/repositories/user.repository';
 
-export class GetUserProfileUseCase {
+export class GetUserUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
   async execute(identifier: string) {
