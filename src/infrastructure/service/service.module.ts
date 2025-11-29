@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import jwtConfig from '../config/jwt.config';
 import { BcryptPasswordHash } from './bcrypt-password-hash';
-import { JwtTokenService } from './jwt-token-service';
+import { JwtTokenService } from './jwt-token-manager';
 import { NanoidGenerator } from './nanoid-generator';
 
 @Module({

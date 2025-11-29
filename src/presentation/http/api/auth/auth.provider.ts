@@ -7,7 +7,7 @@ import { UserRepository } from 'src/domain/repositories/user.repository';
 import { AuthenticationRepositoryPostgres } from 'src/infrastructure/repository/authentication.repository.postgres';
 import { UserRepositoryPostgres } from 'src/infrastructure/repository/user.repository.postgres';
 import { BcryptPasswordHash } from 'src/infrastructure/service/bcrypt-password-hash';
-import { JwtTokenService } from 'src/infrastructure/service/jwt-token-service';
+import { JwtTokenService } from 'src/infrastructure/service/jwt-token-manager';
 import { NanoidGenerator } from 'src/infrastructure/service/nanoid-generator';
 
 export const USER_LOGIN_USE_CASE_TOKEN = Symbol('USER_LOGIN_USE_CASE');
